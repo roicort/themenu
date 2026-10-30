@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import MenuList from './MenuList.astro';
 import { getCollection } from 'astro:content';
 import { getSite } from '../utils/consts';
 import { withBase } from '../utils/slugify';
@@ -29,43 +30,31 @@ const copy = {
 		title: 'Our menus',
 		eyebrow: 'Contemporary Mexican cuisine',
 		description: 'Choose a menu to explore seasonal dishes from our kitchen.',
-		openMenu: 'Explore this menu',
+		caption: 'On the table',
 	},
 	fr: {
 		title: 'Nos menus',
 		eyebrow: 'Cuisine mexicaine contemporaine',
 		description: 'Choisissez un menu pour découvrir les plats de saison de notre cuisine.',
-		openMenu: 'Découvrir ce menu',
+		caption: 'À notre table',
 	},
 };
 const text = copy[lang];
 ---
 
 <PageLayout title={`${text.title} · ${site.title}`} description={text.description}>
-	<section class="content-shell space-y-10 py-12">
-		<header class="max-w-3xl space-y-3">
-			<p class="eyebrow m-0">{text.eyebrow}</p>
-			<h1 class="m-0 text-4xl font-semibold text-ink sm:text-5xl">{text.title}</h1>
-			<p class="m-0 text-muted">{text.description}</p>
-		</header>
-
-		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-			{menuDetails.map((details) => (
-				<a
-					class="group flex min-h-40 flex-col justify-between rounded-2xl border border-border bg-surface p-5 transition hover:-translate-y-0.5 hover:shadow-md"
-					href={withBase(`${lang === 'fr' ? '/fr' : ''}/menu/${details.data.id}/`)}
-				>
-					<div class="space-y-2">
-						<h2 class="m-0 text-2xl font-semibold text-ink">{details.data.title}</h2>
-						{details.data.description && (
-							<p class="m-0 text-sm text-muted">{details.data.description}</p>
-						)}
-					</div>
-					<span class="mt-6 text-sm font-medium text-muted transition group-hover:text-ink">
-						{text.openMenu} →
-					</span>
-				</a>
-			))}
-		</div>
-	</section>
+	<MenuList
+		eyebrow={text.eyebrow}
+		title={text.title}
+		titleTag="h1"
+		showTitle={false}
+		centerVertically={true}
+		description={text.description}
+		caption={text.caption}
+		items={menuDetails.map((details) => ({
+			title: details.data.title,
+			description: details.data.description,
+			href: withBase(`${lang === 'fr' ? '/fr' : ''}/menu/${details.data.id}/`),
+		}))}
+	/>
 </PageLayout>

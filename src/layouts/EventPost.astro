@@ -10,6 +10,7 @@ import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
 interface Props {
 	title: string;
 	description: string;
+	eventDate?: Date;
 	pubDate: Date;
 	updatedDate?: Date;
 	heroImage?: ImageMetadata;
@@ -17,7 +18,7 @@ interface Props {
 	tags?: string[];
 }
 
-const { title, description, pubDate, updatedDate, heroImage, tags = [], Content } = Astro.props as Props;
+const { title, description, eventDate, pubDate, updatedDate, heroImage, tags = [], Content } = Astro.props as Props;
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 ---
@@ -27,9 +28,9 @@ const translatePath = useTranslatedPath(lang);
 	<article class="post-page max-w-4xl w-full mx-auto">
 		<header class="section-heading">
 			<p class="eyebrow">Event</p>
-			<h1>{title}</h1>
+			<h1 class="page-title">{title}</h1>
 			<p class="post-meta">
-				<FormattedDate date={pubDate} locale={lang} />
+				<FormattedDate date={eventDate ?? pubDate} locale={lang} />
 				{updatedDate && (
 					<span>
 						&middot; Updated <FormattedDate date={updatedDate} locale={lang} />

@@ -1,0 +1,99 @@
+---
+interface MenuItem {
+	title: string;
+	description?: string;
+	href: string;
+}
+
+interface Props {
+	eyebrow: string;
+	title: string;
+	titleTag?: 'h1' | 'h2';
+	showTitle?: boolean;
+	centerVertically?: boolean;
+	description?: string;
+	caption: string;
+	items: MenuItem[];
+	allMenusHref?: string;
+	allMenusLabel?: string;
+}
+
+const {
+	eyebrow,
+	title,
+	titleTag = 'h2',
+	showTitle = true,
+	centerVertically = false,
+	description,
+	caption,
+	items,
+	allMenusHref,
+	allMenusLabel,
+} = Astro.props;
+---
+
+<section class:list={['content-shell space-y-8 py-12', centerVertically && 'menu-list--centered']}>
+	<header class="space-y-2">
+		<p class="eyebrow m-0">{eyebrow}</p>
+		{titleTag === 'h1' ? (
+			<h1 class={showTitle ? 'page-title' : 'sr-only'}>{title}</h1>
+		) : (
+			showTitle && <h2 class="section-title">{title}</h2>
+		)}
+		{description && <p class="m-0 text-muted">{description}</p>}
+	</header>
+
+	<div>
+		<p class="border-b border-border pb-3 text-xs font-medium uppercase tracking-[0.18em] text-muted">
+			{caption}
+		</p>
+		<ul class="m-0 list-none p-0">
+			{items.map((item) => (
+				<li class="border-b border-border">
+					<a
+						href={item.href}
+						class="group flex flex-col gap-2 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+					>
+						<span class="menu-row-title transition-transform duration-300 group-hover:translate-x-1">
+							{item.title}
+						</span>
+						{item.description && (
+							<span class="max-w-md text-xs font-medium uppercase leading-relaxed tracking-wide text-muted sm:text-right">
+								{item.description}
+							</span>
+						)}
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+
+	{allMenusHref && allMenusLabel && (
+		<a
+			href={allMenusHref}
+			class="group inline-flex items-center gap-2 text-base font-medium tracking-tight text-ink sm:text-lg"
+		>
+			<span class="underline underline-offset-4">{allMenusLabel}</span>
+			<svg
+				viewBox="0 0 16 16"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.75"
+				aria-hidden="true"
+				class="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1 sm:h-3.5 sm:w-3.5"
+			>
+				<path d="M5.5 2 11.5 8 5.5 14" />
+			</svg>
+		</a>
+	)}
+</section>
+
+<style>
+	.menu-list--centered {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		min-height: calc(100vh - var(--header-height) - var(--grid-cell));
+		min-height: calc(100dvh - var(--header-height) - var(--grid-cell));
+	}
+</style>

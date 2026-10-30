@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+import { withBase } from '../utils/slugify';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const phone = (await getCollection('socials')).find((entry) => entry.data.id === 'phone');
+
+if (!phone) {
+	throw new Error('Phone contact is missing from src/content/socials.yml.');
+}
+
+const copy = {
+	en: {
+		title: 'Ready to join us at the table?',
+		description: 'Reserve by phone or find the details you need to plan your visit.',
+		reserve: 'Reserve by phone',
+		visit: 'Plan your visit',
+	},
+	fr: {
+		title: 'Envie de nous retrouver à table ?',
+		description: 'Réservez par téléphone ou consultez les informations pratiques pour préparer votre visite.',
+		reserve: 'Réserver par téléphone',
+		visit: 'Préparer votre visite',
+	},
+};
+
+const text = copy[lang];
+---
+
+<section class="content-shell border-t border-border py-12">
+	<div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+		<div class="max-w-xl">
+			<h2 class="section-title text-balance">{text.title}</h2>
+			<p class="mt-3 mb-0 text-muted">{text.description}</p>
+		</div>
+		<div class="flex flex-wrap gap-3">
+			<a class="button primary" href={phone.data.href}>{text.reserve}</a>
+			<a class="button secondary" href={withBase(translatePath('/visit/'))}>{text.visit}</a>
+		</div>
+	</div>
+</section>

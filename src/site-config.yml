@@ -8,6 +8,10 @@ site:
     address:
       en: "Calle de la Terraza 123, Centro Histórico, Ciudad de México, CDMX 06000"
       fr: "Calle de la Terraza 123, Centro Histórico, Ciudad de México, CDMX 06000"
+    # Approximate example coordinates; replace with the restaurant's exact location.
+    coordinates:
+      lat: 19.4320
+      lng: -99.1357
     publicTransport:
       en:
         - "Metro: take Line 2 to Allende station, then walk about 7 minutes."

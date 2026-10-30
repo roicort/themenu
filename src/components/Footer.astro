@@ -32,7 +32,7 @@ const iconMap: Record<string, string> = {
   <div class="content-shell">
     <div class="grid gap-8 border-b border-border pb-10 sm:grid-cols-2 xl:grid-cols-4">
       <section class="space-y-3">
-        <h2 class="m-0 text-xl font-semibold tracking-tight text-ink">{t('footer.menus')}</h2>
+        <h2 class="compact-title">{t('footer.menus')}</h2>
         <ul class="m-0 grid gap-2 p-0 text-sm text-ink">
           <li>
             <a class="transition-colors hover:text-ink" href={withBase(translatePath('/menu/'))}>
@@ -53,7 +53,7 @@ const iconMap: Record<string, string> = {
       </section>
 
       <section class="space-y-3">
-        <h2 class="m-0 text-xl font-semibold tracking-tight text-ink">{t('footer.socials')}</h2>
+        <h2 class="compact-title">{t('footer.socials')}</h2>
         <div class="grid gap-2 text-sm text-ink">
           {socials.map((social) => {
             const iconName = social.id ? iconMap[social.id.toLowerCase()] : undefined;
@@ -84,12 +84,12 @@ const iconMap: Record<string, string> = {
       </section>
 
       <section class="space-y-3">
-        <h2 class="m-0 text-xl font-semibold tracking-tight text-ink">{t('footer.address')}</h2>
+        <h2 class="compact-title">{t('footer.address')}</h2>
         <address class="m-0 text-sm not-italic text-muted">{visit.address[lang]}</address>
       </section>
 
       <section class="space-y-3">
-        <h2 class="m-0 text-xl font-semibold tracking-tight text-ink">{t('footer.hours')}</h2>
+        <h2 class="compact-title">{t('footer.hours')}</h2>
         <ul class="m-0 grid gap-1 p-0 text-xs text-muted">
           {visit.hours[lang].map((entry) => (
             <li class="flex justify-between gap-2">

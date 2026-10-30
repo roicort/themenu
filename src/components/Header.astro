@@ -5,6 +5,9 @@ import HeaderLink from "./HeaderLink.astro";
 import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 
 const site = await getSite();
+const [brandArticle, ...brandNameParts] = site.title.trim().split(/\s+/);
+const hasBrandArticle = brandArticle?.toLowerCase() === 'the';
+const brandName = hasBrandArticle ? brandNameParts.join(' ') : site.title;
 import SearchModal from "./SearchModal.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguagePicker from "./LanguagePicker.astro";
@@ -22,26 +25,27 @@ const homeHref = withBase(translatePath('/'));
     class="content-shell w-full h-full"
   >
     <div
-      class="grid h-full grid-cols-[1fr_auto] grid-rows-[auto_auto] items-center md:grid-cols-[auto_1fr_auto] md:grid-rows-1"
+      class="grid h-full grid-cols-[1fr_auto] grid-rows-[auto_auto] items-center xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] xl:grid-rows-1"
     >
       <div class="flex flex-col [html[data-nav='open']_&]:items-center">
         <h1
-          class="m-0 text-xs font-semibold uppercase tracking-wide md:text-base [html[data-nav='open']_&]:text-center"
+          class="m-0 text-xs font-semibold uppercase tracking-wide xl:text-base [html[data-nav='open']_&]:text-center"
         >
           <a href={homeHref} aria-label={site.title}>
-            <Icon
-              name="tabler:rocket"
-              size="2em"
-              class="hidden md:inline-block mr-3 align-middle"
-              aria-hidden="true"
-            />
-            <span>{site.title}</span>
+            {hasBrandArticle ? (
+              <>
+                <span class="brand-article font-display">{brandArticle}</span>{' '}
+                <span>{brandName}</span>
+              </>
+            ) : (
+              <span>{site.title}</span>
+            )}
           </a>
         </h1>
       </div>
       <nav
         id="site-navigation"
-        class="hidden md:flex items-center gap-2 md:gap-3 overflow-x-auto overflow-y-visible pt-1 pb-0.5 text-[0.72rem] tracking-[0.24em] uppercase text-muted [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [--tw-pan-y:none] [&::-webkit-scrollbar]:hidden col-span-2 md:col-auto md:justify-self-center [html[data-nav='open']_&]:flex [html[data-nav='open']_&]:flex-col [html[data-nav='open']_&]:items-start [html[data-nav='open']_&]:gap-2 [html[data-nav='open']_&]:py-4 [html[data-nav='open']_&]:w-full [html[data-nav='open']_&]:col-span-2 [html[data-nav='open']_&]:justify-self-stretch"
+        class="hidden xl:flex items-center gap-2 xl:gap-3 overflow-x-auto overflow-y-visible pt-1 pb-0.5 text-[0.72rem] tracking-[0.24em] uppercase text-muted [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [--tw-pan-y:none] [&::-webkit-scrollbar]:hidden col-span-2 xl:col-auto xl:justify-self-center [html[data-nav='open']_&]:flex [html[data-nav='open']_&]:flex-col [html[data-nav='open']_&]:items-start [html[data-nav='open']_&]:gap-2 [html[data-nav='open']_&]:py-4 [html[data-nav='open']_&]:w-full [html[data-nav='open']_&]:col-span-2 [html[data-nav='open']_&]:justify-self-stretch"
       >
         <HeaderLink href={translatePath('/menu/')}>
           Menu
@@ -62,9 +66,9 @@ const homeHref = withBase(translatePath('/'));
           {t('nav.visit')}
         </HeaderLink>
       </nav>
-      <div class="flex items-center gap-2 md:gap-3 shrink-0 justify-end">
+      <div class="flex items-center gap-2 xl:gap-3 shrink-0 justify-end xl:justify-self-end">
         <button
-          class="header-button md:hidden"
+          class="header-button xl:hidden"
           type="button"
           id="nav-toggle"
           aria-controls="site-navigation"
@@ -89,7 +93,7 @@ const homeHref = withBase(translatePath('/'));
         <SearchModal />
         <LanguagePicker />
         <a
-          class="header-button hidden md:inline-flex"
+          class="header-button hidden xl:inline-flex"
           href="https://github.com/roicort/launchpad"
           target="_blank"
           rel="noopener noreferrer"
@@ -98,7 +102,7 @@ const homeHref = withBase(translatePath('/'));
           <Icon name="tabler:brand-github" size={18} stroke-width={1.6} />
         </a>
         <button
-          class="header-button hidden md:inline-flex"
+          class="header-button hidden xl:inline-flex"
           type="button"
           id="debug-toggle"
           aria-label="Toggle debug borders"
@@ -189,71 +193,90 @@ const homeHref = withBase(translatePath('/'));
 
   @reference "tailwindcss";
 
+  .brand-article {
+	font-size: 1.15em;
+	font-weight: 400;
+	letter-spacing: 0;
+	text-transform: none;
+  }
+
   header {
-		min-height: calc(var(--grid-cell) * 1);
+		min-height: var(--header-height);
 		background: color-mix(in oklab, var(--color-surface) 80%, transparent);
 		-webkit-backdrop-filter: blur(14px);
 		backdrop-filter: blur(14px);
   }
 
-  @media (max-width: 767px) {
-	  header {
-		min-height: calc(var(--grid-cell) * 4);
-	  }
+  html[data-nav='open'] header {
+	height: 100vh;
+	height: 100dvh;
+	min-height: 100vh;
+	min-height: 100dvh;
+	align-items: stretch;
+	overflow-y: auto;
+	background: var(--color-surface);
+  }
 
-	  html[data-nav='open'] .content-shell {
-		height: 100%;
-		min-height: 100%;
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-	  }
+  html[data-nav='open'] header .content-shell {
+	height: 100%;
+	min-height: 100%;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+  }
 
-	  html[data-nav='open'] header {
-		height: 100vh;
-		height: 100dvh;
-		min-height: 100vh;
-		min-height: 100dvh;
-		align-items: stretch;
-		overflow-y: auto;
-		background: var(--color-surface);
-	  }
+  html[data-nav='open'] header .content-shell > .grid {
+	min-height: 100%;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-rows: auto minmax(0, 1fr);
+	align-content: stretch;
+  }
 
-	  html[data-nav='open'] header .content-shell > .grid {
-		min-height: 100%;
-		grid-template-rows: auto minmax(0, 1fr);
-		align-content: stretch;
-	  }
+  html[data-nav='open'] header h1 {
+	font-size: 0.75rem;
+  }
 
-	  html[data-nav='open'] header .content-shell > .grid > div:first-child {
-		grid-row: 1;
-		grid-column: 1;
-		align-items: flex-start;
-	  }
+  html[data-nav='open'] header .content-shell > .grid > div:first-child {
+	grid-row: 1;
+	grid-column: 1;
+	align-items: flex-start;
+  }
 
-	  html[data-nav='open'] header nav {
-		grid-row: 2;
-		grid-column: 1 / -1;
-		align-self: stretch;
-		justify-content: center;
-		gap: 0.75rem;
-	  }
+  html[data-nav='open'] header nav {
+	display: flex;
+	grid-row: 2;
+	grid-column: 1 / -1;
+	flex-direction: column;
+	align-items: flex-start;
+	align-self: stretch;
+	justify-content: center;
+	gap: 0.75rem;
+	width: 100%;
+  }
 
-	  html[data-nav='open'] header nav a {
-		display: block;
-		padding-block: 0.45rem;
-		font-size: 0.9rem;
-	  }
+  html[data-nav='open'] header nav a {
+	display: block;
+	padding-block: 0.45rem;
+	font-size: 0.9rem;
+  }
 
-	  html[data-nav='open'] header .content-shell > .grid > div:last-child {
-		grid-row: 1;
-		grid-column: 2;
-		align-self: start;
-		justify-self: end;
-	  }
+  html[data-nav='open'] header .content-shell > .grid > div:last-child {
+	grid-row: 1;
+	grid-column: 2;
+	align-self: start;
+	justify-self: end;
+  }
 
-	  :global(body.nav-open) {
-		overflow: hidden;
-	  }
+  html[data-nav='open'] header #nav-toggle {
+	display: inline-flex;
+  }
+
+  html[data-nav='open'] header #debug-toggle,
+  html[data-nav='open'] header a[aria-label='Visit the GitHub repository'] {
+	display: none;
+  }
+
+  :global(body.nav-open) {
+	overflow: hidden;
   }
 
   /* header-button styles moved to `src/styles/global.css` so they apply across components */

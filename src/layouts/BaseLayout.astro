@@ -40,12 +40,6 @@ const lang = getLangFromUrl(Astro.url);
 
 <style>
     .content-shell {
-        padding-top: calc(var(--grid-cell) * 1);
-    }
-
-    @media (max-width: 720px) {
-        .content-shell {
-            padding-top: calc(var(--grid-cell) * 4);
-        }
+        padding-top: var(--header-height);
     }
 </style>

@@ -32,7 +32,7 @@ import { Icon } from 'astro-icon/components';
 		<div class="search-modal__header">
 			<div class="search-modal__title">
 				<p class="search-modal__eyebrow">Search</p>
-				<h2 id="search-modal-title">Find anything on the site</h2>
+				<h2 id="search-modal-title" class="compact-title">Find anything on the site</h2>
 			</div>
 			<div class="search-modal__actions">
 				<span class="search-modal__hint">Esc</span>
@@ -205,7 +205,6 @@ window.addEventListener('keydown', (event) => {
 
 .search-modal__title h2 {
 	margin: 0.15rem 0 0;
-	font-size: clamp(1.2rem, 2vw, 1.45rem);
 }
 
 .search-modal__eyebrow {

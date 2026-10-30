@@ -4,6 +4,7 @@ import Hero from '../../components/Hero.astro';
 import HomeMenus from '../../components/HomeMenus.astro';
 import UpcomingEvents from '../../components/UpcomingEvents.astro';
 import HomeSections from '../../components/HomeSections.astro';
+import HomeReservation from '../../components/HomeReservation.astro';
 import Sponsors from '../../components/Sponsors.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import { getSite } from '../../utils/consts';
@@ -16,6 +17,7 @@ const site = await getSite();
 	<Hero
 		eyebrow="Mexico"
 		title="Cuisine mexicaine contemporaine"
+		displayWord="contemporaine"
 		description="Menus de saison, repas privés et événements dans un cadre chaleureux et intime."
 		actions={[
 			{ label: 'Découvrir les menus', href: '/fr/menu' },
@@ -32,5 +34,6 @@ const site = await getSite();
 		eyebrow="Vos mots"
 		title="Ce que disent nos convives"
 	/>
+	<HomeReservation />
 
 </PageLayout>

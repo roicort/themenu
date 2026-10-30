@@ -7,7 +7,6 @@
 	--content-columns: 18;
 	--grid-cell: calc(100vw / var(--grid-divisions));
 	--content-width: calc(var(--grid-cell) * var(--content-columns));
-	
 	--color-ink: #050505;
 	--color-muted: color-mix(in oklab, var(--color-ink) 75%, transparent);
 	--color-paper: #f9f9f9;
@@ -15,7 +14,15 @@
 	--color-border: color-mix(in oklab, var(--color-ink) 14%, transparent);
 }
 
+@theme inline {
+	--font-display: var(--font-display-face);
+}
+
 @layer base {
+	:root {
+		--header-height: 64px;
+	}
+
 	:root[data-theme="light"] {
 		color-scheme: light;
 		--color-ink: #050505;
@@ -34,16 +41,6 @@
 		--color-surface: #131318;
 		--color-border: color-mix(in oklab, var(--color-ink) 16%, transparent);
 		--grid-line: color-mix(in oklab, var(--color-ink) 10%, transparent);
-	}
-
-	:root[data-theme="blue"] {
-		color-scheme: light;
-		--color-ink: #84cdfa;
-		--color-muted: color-mix(in oklab, var(--color-ink) 75%, transparent);
-		--color-paper: #0f1b3f;
-		--color-surface: #0f1b3f;
-		--color-border: color-mix(in oklab, var(--color-ink) 18%, transparent);
-		--grid-line: color-mix(in oklab, var(--color-ink) 12%, transparent);
 	}
 
 	*,
@@ -100,6 +97,51 @@
 }
 
 @layer components {
+
+	.page-title,
+	.section-title,
+	.subsection-title,
+	.item-title,
+	.compact-title,
+	.menu-row-title {
+		margin: 0;
+		color: var(--color-ink);
+		font-weight: 600;
+		letter-spacing: -0.03em;
+		line-height: 1.1;
+	}
+
+	.page-title {
+		font-size: clamp(2.25rem, 5vw, 3.75rem);
+	}
+
+	.section-title {
+		font-size: clamp(1.875rem, 4vw, 2.75rem);
+	}
+
+	.subsection-title {
+		font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+	}
+
+	.item-title {
+		font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+	}
+
+	.compact-title {
+		font-size: 1.25rem;
+	}
+
+	.menu-row-title {
+		font-size: clamp(2.25rem, 5vw, 3.75rem);
+		font-weight: 500;
+		line-height: 1;
+	}
+
+	.post-article :is(h1, h2, h3) {
+		color: var(--color-ink);
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
 
  	.text-muted {
 		color: var(--color-muted);
@@ -275,12 +317,6 @@
 		display: grid;
 		gap: 0.4rem;
 		margin: 2rem 0 1rem;
-	}
-
-	.section-heading h1 {
-		margin: 0;
-		font-size: clamp(2.2rem, 3.6vw, 2.8rem);
-		line-height: 1.1;
 	}
 
 	.post-page {

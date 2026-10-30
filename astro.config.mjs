@@ -22,5 +22,9 @@ export default defineConfig({
       provider: fontProviders.fontsource(),
       name: "Space Grotesk",
       cssVariable: "--font-main",
+  }, {
+      provider: fontProviders.fontsource(),
+      name: "Bodoni Moda",
+      cssVariable: "--font-display-face",
   }]
 });

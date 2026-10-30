@@ -80,6 +80,10 @@ const site = defineCollection({
 				en: z.string().min(1),
 				fr: z.string().min(1),
 			}),
+			coordinates: z.object({
+				lat: z.number().min(-90).max(90),
+				lng: z.number().min(-180).max(180),
+			}).optional(),
 			publicTransport: z.object({
 				en: z.array(z.string().min(1)),
 				fr: z.array(z.string().min(1)),

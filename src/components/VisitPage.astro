@@ -37,33 +37,53 @@ const copy = {
 
 const text = copy[lang];
 const visit = site.visit;
+const mapUrl = visit.coordinates
+	? `https://www.openstreetmap.org/export/embed.html?bbox=${visit.coordinates.lng - 0.01}%2C${visit.coordinates.lat - 0.006}%2C${visit.coordinates.lng + 0.01}%2C${visit.coordinates.lat + 0.006}&layer=mapnik&marker=${visit.coordinates.lat}%2C${visit.coordinates.lng}`
+	: undefined;
+const mapLink = visit.coordinates
+	? `https://www.openstreetmap.org/?mlat=${visit.coordinates.lat}&mlon=${visit.coordinates.lng}#map=16/${visit.coordinates.lat}/${visit.coordinates.lng}`
+	: undefined;
 ---
 
 <PageLayout title={`${text.title} · ${site.title}`} description={text.description}>
 	<section class="content-shell space-y-10 py-12">
 		<header class="max-w-3xl space-y-3">
 			<p class="eyebrow m-0">{text.eyebrow}</p>
-			<h1 class="m-0 text-4xl font-semibold text-ink sm:text-5xl">{text.title}</h1>
+			<h1 class="page-title">{text.title}</h1>
 			<p class="m-0 text-muted">{text.description}</p>
 		</header>
 
 		<div class="grid gap-6 lg:grid-cols-2">
 			<section class="space-y-5 rounded-2xl border border-border bg-surface p-6">
-				<h2 class="m-0 text-2xl font-semibold text-ink">{text.gettingHere}</h2>
+				<h2 class="subsection-title">{text.gettingHere}</h2>
 				<div class="space-y-2">
-					<h3 class="m-0 text-lg font-medium text-ink">{text.address}</h3>
+					<h3 class="item-title">{text.address}</h3>
 					<p class="m-0 text-muted">{visit.address[lang]}</p>
 				</div>
 				<div class="space-y-2">
-					<h3 class="m-0 text-lg font-medium text-ink">{text.publicTransport}</h3>
+					<h3 class="item-title">{text.publicTransport}</h3>
 					<ul class="m-0 list-disc space-y-2 pl-5 text-muted">
 						{visit.publicTransport[lang].map((recommendation) => <li>{recommendation}</li>)}
 					</ul>
 				</div>
+				{mapUrl && mapLink && (
+					<div class="space-y-3">
+						<iframe
+							title={lang === 'fr' ? 'Carte pour nous trouver' : 'Map showing how to find us'}
+							src={mapUrl}
+							class="h-72 w-full rounded-xl border border-border"
+							loading="lazy"
+							referrerpolicy="no-referrer"
+						/>
+						<a class="text-sm font-medium text-ink underline underline-offset-4" href={mapLink} target="_blank" rel="noreferrer">
+							{lang === 'fr' ? 'Ouvrir la carte' : 'Open map'}
+						</a>
+					</div>
+				)}
 			</section>
 
 			<section class="space-y-3 rounded-2xl border border-border bg-surface p-6">
-				<h2 class="m-0 text-2xl font-semibold text-ink">{text.hours}</h2>
+				<h2 class="subsection-title">{text.hours}</h2>
 				<dl class="m-0 grid gap-3">
 					{visit.hours[lang].map((entry) => (
 						<div class="flex justify-between gap-4 border-b border-border pb-2 last:border-0 last:pb-0">

@@ -7,19 +7,29 @@ interface Action {
 interface Props {
 	eyebrow?: string;
 	title: string;
+	displayWord?: string;
 	description?: string;
 	actions?: Action[];
 }
 
 import { withBase } from '../utils/slugify';
 
-const { eyebrow, title, description, actions = [] } = Astro.props;
+const { eyebrow, title, displayWord, description, actions = [] } = Astro.props;
+const displayWordIndex = displayWord ? title.indexOf(displayWord) : -1;
 ---
 
 <section class="content-shell flex items-center">
 	<div class="grid gap-4 max-w-3xl">
 		{eyebrow && <p class="eyebrow">{eyebrow}</p>}
-		<h1 class="text-4xl md:text-5xl lg:text-6xl leading-tight m-0">{title}</h1>
+		<h1 class="page-title">
+			{displayWordIndex >= 0 && displayWord ? (
+				<>
+					{title.slice(0, displayWordIndex)}
+					<span class="font-display">{displayWord}</span>
+					{title.slice(displayWordIndex + displayWord.length)}
+				</>
+			) : title}
+		</h1>
 		{description && <p class="text-muted text-base md:text-lg max-w-2xl m-0">{description}</p>}
 		{actions.length > 0 && (
 			<div class="flex flex-wrap gap-3 mt-3">
@@ -35,12 +45,12 @@ const { eyebrow, title, description, actions = [] } = Astro.props;
 
 <style>
 	.content-shell {
-		min-height: calc(100vh - calc(var(--grid-cell) * 1));
+		min-height: calc(100vh - var(--header-height));
 	}
 
-	@media (max-width: 720px) {
+	@media (max-width: 1023px) {
 		.content-shell {
-			min-height: calc(100vh - calc(var(--grid-cell) * 4));
+			min-height: calc(100vh - var(--header-height));
 		}
 	}
 </style>

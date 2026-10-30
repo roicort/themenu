@@ -1,5 +1,5 @@
 ---
-import Card from './Card.astro';
+import MenuList from './MenuList.astro';
 import { getCollection } from 'astro:content';
 import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
 import { withBase } from '../utils/slugify';
@@ -15,35 +15,28 @@ const copy = {
 		eyebrow: 'From our kitchen',
 		title: 'Explore our menus',
 		allMenus: 'View all menus',
+		caption: 'On the table',
 	},
 	fr: {
 		eyebrow: 'À notre table',
 		title: 'Découvrez nos menus',
 		allMenus: 'Voir tous les menus',
+		caption: 'Nos cartes',
 	},
 };
 
 const text = copy[lang];
 ---
 
-<section class="content-shell space-y-6 py-12">
-	<header class="flex flex-wrap items-end justify-between gap-4">
-		<div class="space-y-2">
-			<p class="eyebrow m-0">{text.eyebrow}</p>
-			<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.title}</h2>
-		</div>
-		<a class="text-sm font-medium text-ink underline underline-offset-4" href={withBase(translatePath('/menu/'))}>
-			{text.allMenus}
-		</a>
-	</header>
-
-	<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-		{menus.map((menu) => (
-			<Card
-				title={menu.data.title}
-				href={withBase(translatePath(`/menu/${menu.data.id}/`))}
-				description={menu.data.description}
-			/>
-		))}
-	</div>
-</section>
+<MenuList
+	eyebrow={text.eyebrow}
+	title={text.title}
+	caption={text.caption}
+	allMenusHref={withBase(translatePath('/menu/'))}
+	allMenusLabel={text.allMenus}
+	items={menus.map((menu) => ({
+		title: menu.data.title,
+		description: menu.data.description,
+		href: withBase(translatePath(`/menu/${menu.data.id}/`)),
+	}))}
+/>

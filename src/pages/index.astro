@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import HomeMenus from '../components/HomeMenus.astro';
 import UpcomingEvents from '../components/UpcomingEvents.astro';
 import HomeSections from '../components/HomeSections.astro';
+import HomeReservation from '../components/HomeReservation.astro';
 import Sponsors from '../components/Sponsors.astro';
 import Testimonials from '../components/Testimonials.astro';
 import { getSite } from '../utils/consts';
@@ -16,6 +17,7 @@ const site = await getSite();
 	<Hero
 		eyebrow="Mexico City"
 		title="Contemporary Mexican cuisine"
+		displayWord="Contemporary"
 		description="Seasonal menus, private dining, and gatherings in a warm, intimate setting."
 		actions={[
 			{ label: 'Explore menus', href: '/menu' },
@@ -31,5 +33,6 @@ const site = await getSite();
 		eyebrow="Guest notes"
 		title="What our guests say"
 	/>
+	<HomeReservation />
 
 </PageLayout>

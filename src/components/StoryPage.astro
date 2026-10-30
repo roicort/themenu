@@ -1,0 +1,72 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+
+const copy = {
+	en: {
+		eyebrow: 'A table with a story',
+		title: 'Our story',
+		intro: 'Contemporary Mexican cuisine, shaped by the seasons and made to be shared.',
+		place: {
+			eyebrow: 'The place',
+			title: 'A place to gather',
+			paragraphs: [
+				'The Menu was imagined as a welcoming place to experience contemporary Mexican cuisine in Mexico City. Our menus follow the seasons and draw on the ingredients and traditions that make Mexican cooking so diverse.',
+				'Whether guests arrive for dinner, a celebration, or an event, we want the table to make room for good food, easy conversation, and time together.',
+			],
+		},
+		chef: {
+			eyebrow: 'The kitchen',
+			title: 'The chef’s point of view',
+			paragraphs: [
+				"Our chef’s story is told through the menus: a respect for Mexican ingredients, an eye for the changing seasons, and the curiosity to see familiar flavors from a new angle.",
+				'Rather than follow a fixed script, the kitchen lets each season shape what comes to the table. The result is contemporary Mexican cooking grounded in tradition and open to discovery.',
+			],
+		},
+	},
+	fr: {
+		eyebrow: 'Une table, une histoire',
+		title: 'Notre histoire',
+		intro: 'Une cuisine mexicaine contemporaine, rythmée par les saisons et pensée pour être partagée.',
+		place: {
+			eyebrow: 'Le lieu',
+			title: 'Un lieu de rencontre',
+			paragraphs: [
+				'The Menu a été imaginé comme un lieu accueillant pour découvrir la cuisine mexicaine contemporaine à Mexico. Nos menus suivent les saisons et mettent à l’honneur les ingrédients et les traditions qui font la richesse de la cuisine mexicaine.',
+				'Que nos convives viennent pour un dîner, une célébration ou un événement, nous souhaitons que la table invite à savourer de bons plats, à échanger et à prendre le temps d’être ensemble.',
+			],
+		},
+		chef: {
+			eyebrow: 'La cuisine',
+			title: 'Le regard du chef',
+			paragraphs: [
+				'L’histoire de notre chef se raconte à travers les menus : le respect des ingrédients mexicains, l’attention portée aux saisons et la curiosité de redécouvrir des saveurs familières.',
+				'Plutôt que de suivre une recette immuable, la cuisine laisse chaque saison inspirer ce qui arrive à table. Le résultat : une cuisine mexicaine contemporaine, ancrée dans la tradition et ouverte à la découverte.',
+			],
+		},
+	},
+};
+
+const text = copy[lang];
+---
+
+<section class="content-shell space-y-8 py-12">
+	<header class="max-w-3xl space-y-3">
+		<p class="eyebrow m-0">{text.eyebrow}</p>
+		<h1 class="page-title">{text.title}</h1>
+		<p class="m-0 text-lg text-muted">{text.intro}</p>
+	</header>
+
+	<div class="grid gap-5 md:grid-cols-2">
+		{[text.place, text.chef].map((section) => (
+			<article class="space-y-4 rounded-[20px] border border-border bg-surface p-6 sm:p-8">
+				<header class="space-y-2">
+					<p class="eyebrow m-0">{section.eyebrow}</p>
+					<h2 class="subsection-title">{section.title}</h2>
+				</header>
+				{section.paragraphs.map((paragraph) => <p class="m-0 text-muted">{paragraph}</p>)}
+			</article>
+		))}
+	</div>
+</section>

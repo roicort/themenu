@@ -80,7 +80,7 @@ const visit = site.visit;
 	<header class="flex flex-wrap items-end justify-between gap-4">
 		<div class="space-y-2">
 			<p class="eyebrow m-0">{text.privateDining.eyebrow}</p>
-			<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.privateDining.title}</h2>
+			<h2 class="section-title">{text.privateDining.title}</h2>
 			<p class="m-0 max-w-2xl text-muted">{text.privateDining.description}</p>
 		</div>
 		<a class="text-sm font-medium text-ink underline underline-offset-4" href={withBase(translatePath('/private-dining/'))}>
@@ -111,7 +111,7 @@ const visit = site.visit;
 	<header class="flex flex-wrap items-end justify-between gap-4">
 		<div class="space-y-2">
 			<p class="eyebrow m-0">{text.journal.eyebrow}</p>
-			<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.journal.title}</h2>
+			<h2 class="section-title">{text.journal.title}</h2>
 		</div>
 		<a class="text-sm font-medium text-ink underline underline-offset-4" href={withBase(translatePath('/journal/'))}>
 			{text.journal.link}
@@ -142,22 +142,22 @@ const visit = site.visit;
 <section class="content-shell space-y-6 border-t border-border py-12">
 	<header class="space-y-2">
 		<p class="eyebrow m-0">{text.visit.eyebrow}</p>
-		<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.visit.title}</h2>
+		<h2 class="section-title">{text.visit.title}</h2>
 	</header>
 
 	<div class="grid gap-6 md:grid-cols-3">
 		<div class="space-y-2">
-			<h3 class="m-0 text-lg font-semibold text-ink">{text.visit.address}</h3>
+			<h3 class="item-title">{text.visit.address}</h3>
 			<p class="m-0 text-muted">{visit.address[lang]}</p>
 		</div>
 		<div class="space-y-2">
-			<h3 class="m-0 text-lg font-semibold text-ink">{text.visit.publicTransport}</h3>
+			<h3 class="item-title">{text.visit.publicTransport}</h3>
 			<ul class="m-0 list-disc space-y-2 pl-5 text-muted">
 				{visit.publicTransport[lang].map((recommendation) => <li>{recommendation}</li>)}
 			</ul>
 		</div>
 		<div class="space-y-2">
-			<h3 class="m-0 text-lg font-semibold text-ink">{text.visit.hours}</h3>
+			<h3 class="item-title">{text.visit.hours}</h3>
 			<ul class="m-0 grid gap-1 p-0 text-sm text-muted">
 				{visit.hours[lang].map((entry) => (
 					<li class="flex justify-between gap-2">
