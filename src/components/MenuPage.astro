@@ -1,0 +1,250 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import PageLayout from '../layouts/PageLayout.astro';
+import { getSite } from '../utils/consts';
+
+type Language = 'en' | 'fr';
+type MenuId = string;
+const categories = ['STARTERS', 'MAINS', 'SIDES', 'DESSERTS', 'DRINKS', 'WINES', 'COCKTAILS'] as const;
+
+interface Props {
+	lang: Language;
+	menuId: MenuId;
+}
+
+const { lang, menuId } = Astro.props;
+const site = await getSite();
+const menuDetails = (await getCollection('menus')).find(
+	(entry) => entry.data.id === menuId && entry.id.startsWith(`${lang}/`),
+);
+if (!menuDetails) {
+	throw new Error(`Missing menu details for "${lang}/${menuId}".`);
+}
+const dishes = (await getCollection('menu'))
+	.filter((dish) => dish.id.startsWith(`${lang}/`) && dish.data.menu === menuDetails.data.id)
+	.sort((a, b) => a.data.order - b.data.order);
+const mealCategories = categories.filter((category) =>
+	dishes.some((dish) => dish.data.category === category),
+);
+const copy = {
+	en: {
+		eyebrow: 'Contemporary Mexican cuisine',
+		empty: 'Our menu is coming soon.',
+		allCategories: 'All',
+		categories: {
+			STARTERS: 'STARTERS',
+			MAINS: 'MAINS',
+			SIDES: 'SIDES',
+			DESSERTS: 'DESSERTS',
+			DRINKS: 'DRINKS',
+			WINES: 'WINES',
+			COCKTAILS: 'COCKTAILS',
+		},
+		tags: {
+			spicy: 'Spicy',
+			vegetarian: 'Vegetarian',
+			alcohol: 'Contains alcohol',
+			organic: 'Organic',
+		},
+		allergensLabel: 'Allergens',
+		allergens: {
+			seafood: 'Seafood',
+			egg: 'Egg',
+			gluten: 'Gluten',
+		},
+	},
+	fr: {
+		eyebrow: 'Cuisine mexicaine contemporaine',
+		empty: 'Notre menu arrive bientôt.',
+		allCategories: 'Tout',
+		categories: {
+			STARTERS: 'ENTRÉES',
+			MAINS: 'PLATS PRINCIPAUX',
+			SIDES: 'ACCOMPAGNEMENTS',
+			DESSERTS: 'DESSERTS',
+			DRINKS: 'BOISSONS',
+			WINES: 'VINS',
+			COCKTAILS: 'COCKTAILS',
+		},
+		tags: {
+			spicy: 'Épicé',
+			vegetarian: 'Végétarien',
+			alcohol: 'Contient de l’alcool',
+			organic: 'Biologique',
+		},
+		allergensLabel: 'Allergènes',
+		allergens: {
+			seafood: 'Fruits de mer',
+			egg: 'Œuf',
+			gluten: 'Gluten',
+		},
+	},
+};
+const text = copy[lang];
+const menuTitle = menuDetails.data.title;
+const tagIcons = {
+	spicy: 'tabler:flame',
+	vegetarian: 'tabler:plant',
+	alcohol: 'tabler:glass-cocktail',
+	organic: 'tabler:seedling',
+} as const;
+const allergenIcons = {
+	seafood: 'tabler:fish',
+	egg: 'tabler:egg',
+	gluten: 'tabler:wheat',
+} as const;
+---
+
+<PageLayout title={`${menuTitle} · ${site.title}`} description={menuDetails.data.description}>
+	<section class="content-shell py-12 space-y-10">
+		<header class="max-w-3xl space-y-3">
+			<p class="eyebrow m-0">{text.eyebrow}</p>
+			<h1 class="m-0 text-4xl font-semibold text-ink sm:text-5xl">{menuTitle}</h1>
+			{menuDetails.data.description && (
+				<p class="m-0 text-muted">{menuDetails.data.description}</p>
+			)}
+		</header>
+
+		{dishes.length === 0 ? (
+			<p class="text-muted">{text.empty}</p>
+		) : (
+			<div class="space-y-8" data-category-switcher>
+				<div class="flex flex-wrap gap-2" aria-label={text.allCategories}>
+					<button
+						type="button"
+						aria-pressed="true"
+						data-category-filter="all"
+						class="category-filter rounded-full border border-border px-4 py-2 text-sm font-medium text-muted transition hover:text-ink"
+					>
+						{text.allCategories}
+					</button>
+					{mealCategories.map((category) => (
+						<button
+							type="button"
+							aria-pressed="false"
+							data-category-filter={category}
+							class="category-filter rounded-full border border-border px-4 py-2 text-sm font-medium text-muted transition hover:text-ink"
+						>
+							{text.categories[category]}
+						</button>
+					))}
+				</div>
+
+				{mealCategories.map((category) => (
+					<section
+						class="space-y-5"
+						aria-labelledby={`category-${category}`}
+						data-category-section={category}
+					>
+						<h2 id={`category-${category}`} class="m-0 border-b border-border pb-3 text-2xl font-semibold text-ink">
+							{text.categories[category]}
+						</h2>
+						<div class="grid gap-4 sm:grid-cols-2">
+							{dishes
+								.filter((dish) => dish.data.category === category)
+								.map((dish) => (
+									<article class="flex gap-4 rounded-2xl border border-border bg-surface p-5">
+										{dish.data.image && (
+											<Image
+												src={dish.data.image}
+												alt={dish.data.name}
+												width={112}
+												height={112}
+												class="h-24 w-24 shrink-0 rounded-xl object-cover"
+											/>
+										)}
+										<div class="min-w-0 flex-1">
+											<div class="flex items-start justify-between gap-4">
+												<h3 class="m-0 text-lg font-semibold text-ink">{dish.data.name}</h3>
+												{dish.data.price && (
+													<p class="m-0 shrink-0 font-semibold text-ink">{dish.data.price}</p>
+												)}
+											</div>
+											<p class="mb-0 mt-2 text-sm text-muted">{dish.data.description}</p>
+											{dish.data.quantity && (
+												<p class="mb-0 mt-2 text-xs text-muted">
+													{dish.data.quantity.amount} {dish.data.quantity.unit}
+												</p>
+											)}
+											{dish.data.tags.length > 0 && (
+												<ul class="mb-0 mt-3 flex list-none flex-wrap gap-2 p-0">
+													{dish.data.tags.map((tag) => (
+														<li class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs text-muted">
+															<Icon name={tagIcons[tag]} size={14} aria-hidden="true" />
+															<span>{text.tags[tag]}</span>
+														</li>
+													))}
+												</ul>
+											)}
+											{(dish.data.allergens ?? []).length > 0 && (
+												<ul
+													class="mb-0 mt-3 flex list-none flex-wrap gap-2 p-0"
+													aria-label={text.allergensLabel}
+												>
+													{(dish.data.allergens ?? []).map((allergen) => (
+														<li class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs text-muted">
+															<Icon name={allergenIcons[allergen]} size={14} aria-hidden="true" />
+															<span>{text.allergens[allergen]}</span>
+														</li>
+													))}
+												</ul>
+											)}
+											{dish.data.variants.length > 0 && (
+												<ul class="mb-0 mt-4 list-none space-y-2 border-t border-border pt-3">
+													{dish.data.variants.map((variant) => (
+														<li class="flex items-start justify-between gap-4 text-sm">
+															<span class="text-muted">
+																{variant.name}
+																{variant.quantity && (
+																	<span class="ml-2 text-xs">
+																		{variant.quantity.amount} {variant.quantity.unit}
+																	</span>
+																)}
+															</span>
+															{variant.price && (
+																<span class="shrink-0 font-medium text-ink">{variant.price}</span>
+															)}
+														</li>
+													))}
+												</ul>
+											)}
+										</div>
+									</article>
+								))}
+						</div>
+					</section>
+				))}
+			</div>
+		)}
+	</section>
+</PageLayout>
+
+<script>
+document.querySelectorAll<HTMLElement>('[data-category-switcher]').forEach((root) => {
+	const filters = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-category-filter]'));
+	const sections = Array.from(root.querySelectorAll<HTMLElement>('[data-category-section]'));
+
+	filters.forEach((filter) => {
+		filter.addEventListener('click', () => {
+			filters.forEach((candidate) => {
+				candidate.setAttribute('aria-pressed', String(candidate === filter));
+			});
+			sections.forEach((section) => {
+				section.hidden =
+					filter.dataset.categoryFilter !== 'all' &&
+					section.dataset.categorySection !== filter.dataset.categoryFilter;
+			});
+		});
+	});
+});
+</script>
+
+<style>
+	.category-filter[aria-pressed='true'] {
+		border-color: var(--color-ink);
+		background: var(--color-ink);
+		color: var(--color-surface);
+	}
+</style>

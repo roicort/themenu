@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import { getSite } from '../utils/consts';
+
+type Language = 'en' | 'fr';
+
+interface Props {
+	lang: Language;
+}
+
+const { lang } = Astro.props;
+const site = await getSite();
+const spaces = (await getCollection('privateDiningSpaces'))
+	.filter((space) => space.id.startsWith(`${lang}/`))
+	.sort((a, b) => a.id.localeCompare(b.id));
+
+const copy = {
+	en: {
+		title: 'Private Dining',
+		eyebrow: 'Gather together',
+		description: 'Discover our private spaces for a more intimate dining experience.',
+		capacity: (count: number) => `Seats up to ${count} guests`,
+		empty: 'Details about our private dining spaces are coming soon.',
+	},
+	fr: {
+		title: 'Repas privés',
+		eyebrow: 'À partager',
+		description: 'Découvrez nos espaces privés pour un repas plus intime.',
+		capacity: (count: number) => `Jusqu’à ${count} personnes`,
+		empty: 'Les détails de nos espaces privés seront bientôt disponibles.',
+	},
+};
+
+const text = copy[lang];
+---
+
+<PageLayout title={`${text.title} · ${site.title}`} description={text.description}>
+	<section class="content-shell space-y-10 py-12">
+		<header class="max-w-3xl space-y-3">
+			<p class="eyebrow m-0">{text.eyebrow}</p>
+			<h1 class="m-0 text-4xl font-semibold text-ink sm:text-5xl">{text.title}</h1>
+			<p class="m-0 text-muted">{text.description}</p>
+		</header>
+
+		{spaces.length === 0 ? (
+			<p class="text-muted">{text.empty}</p>
+		) : (
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{spaces.map((space) => (
+					<article class="overflow-hidden rounded-2xl border border-border bg-surface">
+						{space.data.image && (
+							<Image
+								src={space.data.image}
+								alt={space.data.name}
+								class="aspect-[4/3] w-full object-cover"
+								width={900}
+								height={675}
+							/>
+						)}
+						<div class="space-y-3 p-5">
+							<div>
+								<h2 class="m-0 text-2xl font-semibold text-ink">{space.data.name}</h2>
+								<p class="mt-1 text-sm font-medium text-muted">{text.capacity(space.data.capacity)}</p>
+							</div>
+							{space.data.description && <p class="m-0 text-muted">{space.data.description}</p>}
+						</div>
+					</article>
+				))}
+			</div>
+		)}
+	</section>
+</PageLayout>

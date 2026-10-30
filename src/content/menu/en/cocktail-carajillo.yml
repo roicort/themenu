@@ -1,0 +1,11 @@
+name: Café de olla carajillo
+description: Espresso, artisanal coffee liqueur, cinnamon, and piloncillo.
+menu: cava
+category: COCKTAILS
+price: "$225 MXN"
+quantity:
+  amount: 120
+  unit: ml
+order: 4
+tags:
+  - alcohol

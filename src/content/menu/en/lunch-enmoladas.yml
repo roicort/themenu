@@ -1,0 +1,11 @@
+name: Enmoladas de la casa
+description: Handmade corn tortillas, black mole, sesame, and fresh herbs.
+menu: lunch
+category: MAINS
+price: "$295 MXN"
+quantity:
+  amount: 320
+  unit: g
+order: 2
+allergens:
+  - gluten

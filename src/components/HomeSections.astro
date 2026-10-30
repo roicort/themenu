@@ -1,0 +1,175 @@
+---
+import Card from './Card.astro';
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+import { getSite } from '../utils/consts';
+import { withBase } from '../utils/slugify';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const site = await getSite();
+if (!site.visit) {
+	throw new Error('Visit information is missing from site-config.yml.');
+}
+
+const spaces = (await getCollection('privateDiningSpaces'))
+	.filter((space) => space.id.startsWith(`${lang}/`))
+	.sort((a, b) => a.id.localeCompare(b.id))
+	.slice(0, 2);
+const journalEntries = (await getCollection('journal'))
+	.filter((entry) => entry.id.startsWith(`${lang}/`))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+
+const copy = {
+	en: {
+		privateDining: {
+			eyebrow: 'Gather together',
+			title: 'Private dining',
+			description: 'Discover intimate spaces for sharing a meal and celebrating together.',
+			capacity: (count: number) => `Up to ${count} guests`,
+			link: 'Explore private dining',
+			empty: 'Private dining details are coming soon.',
+		},
+		journal: {
+			eyebrow: 'Stories from our table',
+			title: 'Journal',
+			link: 'Read the journal',
+			empty: 'New stories are coming soon.',
+		},
+		visit: {
+			eyebrow: 'Find us',
+			title: 'Plan your visit',
+			address: 'Address',
+			publicTransport: 'Public transit',
+			hours: 'Hours',
+			link: 'Visit details',
+		},
+	},
+	fr: {
+		privateDining: {
+			eyebrow: 'À partager',
+			title: 'Repas privés',
+			description: 'Découvrez nos espaces intimistes pour partager un repas et célébrer ensemble.',
+			capacity: (count: number) => `Jusqu’à ${count} personnes`,
+			link: 'Découvrir nos espaces',
+			empty: 'Les détails de nos espaces privés seront bientôt disponibles.',
+		},
+		journal: {
+			eyebrow: 'Histoires à notre table',
+			title: 'Journal',
+			link: 'Lire le journal',
+			empty: 'De nouvelles histoires arrivent bientôt.',
+		},
+		visit: {
+			eyebrow: 'Nous trouver',
+			title: 'Préparez votre visite',
+			address: 'Adresse',
+			publicTransport: 'Transports en commun',
+			hours: 'Horaires',
+			link: 'Informations pratiques',
+		},
+	},
+};
+
+const text = copy[lang];
+const visit = site.visit;
+---
+
+<section class="content-shell space-y-6 border-t border-border py-12">
+	<header class="flex flex-wrap items-end justify-between gap-4">
+		<div class="space-y-2">
+			<p class="eyebrow m-0">{text.privateDining.eyebrow}</p>
+			<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.privateDining.title}</h2>
+			<p class="m-0 max-w-2xl text-muted">{text.privateDining.description}</p>
+		</div>
+		<a class="text-sm font-medium text-ink underline underline-offset-4" href={withBase(translatePath('/private-dining/'))}>
+			{text.privateDining.link}
+		</a>
+	</header>
+
+	{spaces.length === 0 ? (
+		<p class="m-0 text-muted">{text.privateDining.empty}</p>
+	) : (
+		<div class="grid gap-5 sm:grid-cols-2">
+			{spaces.map((space) => (
+				<Card
+					title={space.data.name}
+					href={withBase(translatePath('/private-dining/'))}
+					description={space.data.description}
+					image={space.data.image}
+					imageAlt={space.data.name}
+				>
+					<p class="m-0">{text.privateDining.capacity(space.data.capacity)}</p>
+				</Card>
+			))}
+		</div>
+	)}
+</section>
+
+<section class="content-shell space-y-6 border-t border-border py-12">
+	<header class="flex flex-wrap items-end justify-between gap-4">
+		<div class="space-y-2">
+			<p class="eyebrow m-0">{text.journal.eyebrow}</p>
+			<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.journal.title}</h2>
+		</div>
+		<a class="text-sm font-medium text-ink underline underline-offset-4" href={withBase(translatePath('/journal/'))}>
+			{text.journal.link}
+		</a>
+	</header>
+
+	{journalEntries.length === 0 ? (
+		<p class="m-0 text-muted">{text.journal.empty}</p>
+	) : (
+		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+			{journalEntries.map((entry) => {
+				const slug = entry.id.replace(/^[^/]+\//, '');
+				return (
+					<Card
+						title={entry.data.title}
+						href={withBase(translatePath(`/journal/${slug}/`))}
+						description={entry.data.description}
+						date={entry.data.pubDate}
+						image={entry.data.heroImage}
+						imageAlt={entry.data.title}
+					/>
+				);
+			})}
+		</div>
+	)}
+</section>
+
+<section class="content-shell space-y-6 border-t border-border py-12">
+	<header class="space-y-2">
+		<p class="eyebrow m-0">{text.visit.eyebrow}</p>
+		<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.visit.title}</h2>
+	</header>
+
+	<div class="grid gap-6 md:grid-cols-3">
+		<div class="space-y-2">
+			<h3 class="m-0 text-lg font-semibold text-ink">{text.visit.address}</h3>
+			<p class="m-0 text-muted">{visit.address[lang]}</p>
+		</div>
+		<div class="space-y-2">
+			<h3 class="m-0 text-lg font-semibold text-ink">{text.visit.publicTransport}</h3>
+			<ul class="m-0 list-disc space-y-2 pl-5 text-muted">
+				{visit.publicTransport[lang].map((recommendation) => <li>{recommendation}</li>)}
+			</ul>
+		</div>
+		<div class="space-y-2">
+			<h3 class="m-0 text-lg font-semibold text-ink">{text.visit.hours}</h3>
+			<ul class="m-0 grid gap-1 p-0 text-sm text-muted">
+				{visit.hours[lang].map((entry) => (
+					<li class="flex justify-between gap-2">
+						<span>{entry.day}</span>
+						<span class="text-right">{entry.schedule}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+	</div>
+
+	<a class="inline-flex text-sm font-medium text-ink underline underline-offset-4" href={withBase(translatePath('/visit/'))}>
+		{text.visit.link}
+	</a>
+</section>

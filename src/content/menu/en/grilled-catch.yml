@@ -1,0 +1,20 @@
+name: Fire-roasted catch of the day
+description: Market fish with costeño chile adobo, hoja santa, and seasonal vegetables.
+category: MAINS
+menu: dinner
+order: 4
+variants:
+  - name: Tasting portion
+    price: "$420 MXN"
+    quantity:
+      amount: 180
+      unit: g
+  - name: Main portion
+    price: "$560 MXN"
+    quantity:
+      amount: 240
+      unit: g
+allergens:
+  - seafood
+tags:
+  - spicy

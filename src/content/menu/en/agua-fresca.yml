@@ -1,0 +1,12 @@
+name: Seasonal agua fresca
+description: House-made fruit infusion with a bright finish and a touch of Mexican lime.
+category: DRINKS
+menu: cava
+price: "$85 MXN"
+quantity:
+  amount: 300
+  unit: ml
+order: 7
+variants:
+  - name: Hibiscus and berries
+  - name: Xoconostle and lime

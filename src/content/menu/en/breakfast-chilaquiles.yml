@@ -1,0 +1,13 @@
+name: Red chilaquiles
+description: Blue corn totopos, guajillo salsa, slow-cooked egg, and aged cheese.
+menu: breakfast
+category: MAINS
+price: "$245 MXN"
+quantity:
+  amount: 320
+  unit: g
+order: 2
+tags:
+  - spicy
+allergens:
+  - egg

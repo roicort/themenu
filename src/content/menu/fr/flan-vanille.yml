@@ -1,0 +1,12 @@
+name: Gâteau au cacao et maïs nixtamalisé
+description: Gâteau chaud au cacao, maïs nixtamalisé, glace au lait brûlé et piloncillo.
+category: DESSERTS
+menu: dinner
+price: "175 MXN"
+quantity:
+  amount: 120
+  unit: g
+order: 6
+allergens:
+  - egg
+  - gluten

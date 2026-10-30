@@ -1,0 +1,18 @@
+name: Sélection de mezcals mexicains
+description: Dégustation de spiritueux d’agave artisanaux issus de petits producteurs.
+category: DRINKS
+menu: cava
+order: 8
+variants:
+  - name: Espadín joven
+    price: "190 MXN"
+    quantity:
+      amount: 60
+      unit: ml
+  - name: Tobalá reposado
+    price: "320 MXN"
+    quantity:
+      amount: 60
+      unit: ml
+tags:
+  - alcohol

@@ -1,0 +1,12 @@
+name: Concha au cacao
+description: Brioche au cacao à fermentation lente, cuite chaque matin.
+menu: breakfast
+category: DESSERTS
+price: "95 MXN"
+quantity:
+  amount: 85
+  unit: g
+order: 4
+allergens:
+  - egg
+  - gluten

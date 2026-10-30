@@ -1,0 +1,63 @@
+---
+import Card from './Card.astro';
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+import { withBase } from '../utils/slugify';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const events = (await getCollection('events'))
+	.filter((event) => (
+		event.id.startsWith(`${lang}/`)
+		&& event.data.eventDate
+		&& event.data.eventDate >= today
+	))
+	.sort((a, b) => (a.data.eventDate?.valueOf() ?? 0) - (b.data.eventDate?.valueOf() ?? 0))
+	.slice(0, 3);
+
+const copy = {
+	en: {
+		eyebrow: 'Save the date',
+		title: 'Upcoming events',
+		empty: 'No upcoming events at the moment. Check back soon.',
+	},
+	fr: {
+		eyebrow: 'À noter',
+		title: 'Prochains événements',
+		empty: 'Aucun événement à venir pour le moment. Revenez bientôt.',
+	},
+};
+
+const text = copy[lang];
+---
+
+<section class="content-shell space-y-6 py-12">
+	<header class="space-y-2">
+		<p class="eyebrow m-0">{text.eyebrow}</p>
+		<h2 class="m-0 text-3xl font-semibold text-ink sm:text-4xl">{text.title}</h2>
+	</header>
+
+	{events.length === 0 ? (
+		<p class="m-0 text-muted">{text.empty}</p>
+	) : (
+		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+			{events.map((event) => {
+				const slug = event.id.replace(/^[^/]+\//, '');
+				return (
+					<Card
+						title={event.data.title}
+						href={withBase(translatePath(`/events/${slug}/`))}
+						description={event.data.description}
+						date={event.data.eventDate}
+						image={event.data.heroImage}
+						imageAlt={event.data.title}
+						eyebrow={lang === 'fr' ? 'Événement' : 'Event'}
+					/>
+				);
+			})}
+		</div>
+	)}
+</section>

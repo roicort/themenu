@@ -1,0 +1,18 @@
+name: Nebbiolo de la vallée de Guadalupe
+description: Vin rouge mexicain aux notes de baies sauvages, d’herbes et d’épices douces.
+menu: cava
+category: WINES
+order: 1
+variants:
+  - name: Verre
+    price: "220 MXN"
+    quantity:
+      amount: 150
+      unit: ml
+  - name: Bouteille
+    price: "980 MXN"
+    quantity:
+      amount: 750
+      unit: ml
+tags:
+  - alcohol

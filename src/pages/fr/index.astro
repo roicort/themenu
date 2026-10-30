@@ -1,0 +1,36 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/Hero.astro';
+import HomeMenus from '../../components/HomeMenus.astro';
+import UpcomingEvents from '../../components/UpcomingEvents.astro';
+import HomeSections from '../../components/HomeSections.astro';
+import Sponsors from '../../components/Sponsors.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import { getSite } from '../../utils/consts';
+const site = await getSite();
+---
+
+<PageLayout
+	title={site.title}
+>
+	<Hero
+		eyebrow="Mexico"
+		title="Cuisine mexicaine contemporaine"
+		description="Menus de saison, repas privés et événements dans un cadre chaleureux et intime."
+		actions={[
+			{ label: 'Découvrir les menus', href: '/fr/menu' },
+			{ label: 'Préparer votre visite', href: '/fr/visit' },
+		]}
+	/>
+
+	<HomeMenus />
+	<UpcomingEvents />
+	<HomeSections />
+
+	<Sponsors />
+	<Testimonials
+		eyebrow="Vos mots"
+		title="Ce que disent nos convives"
+	/>
+
+</PageLayout>

@@ -1,0 +1,9 @@
+name: Infusion d’hibiscus et romarin
+description: Infusion parfumée sans caféine, servie chaude ou glacée.
+menu: cava
+category: DRINKS
+price: "95 MXN"
+quantity:
+  amount: 300
+  unit: ml
+order: 6

@@ -1,0 +1,13 @@
+name: Chilaquiles rouges
+description: Totopos de maïs bleu, salsa au guajillo, œuf confit et fromage affiné.
+menu: breakfast
+category: MAINS
+price: "245 MXN"
+quantity:
+  amount: 320
+  unit: g
+order: 2
+tags:
+  - spicy
+allergens:
+  - egg

@@ -1,0 +1,11 @@
+name: Ember-roasted chayote
+description: Chayote, pumpkin-seed pipián, and hoja santa oil.
+menu: lunch
+category: SIDES
+price: "$135 MXN"
+quantity:
+  amount: 160
+  unit: g
+order: 3
+tags:
+  - vegetarian

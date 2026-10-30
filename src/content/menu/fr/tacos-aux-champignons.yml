@@ -1,0 +1,11 @@
+name: Canard au mole noir
+description: Canard confit, mole noir au cacao et au pain de blé grillé, tortillas de maïs faites maison.
+category: MAINS
+menu: dinner
+price: "520 MXN"
+quantity:
+  amount: 220
+  unit: g
+order: 3
+allergens:
+  - gluten

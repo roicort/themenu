@@ -1,0 +1,11 @@
+name: Fruits de saison au piment
+description: Fruits du marché, citron vert et fine poudre de piment maison.
+menu: breakfast
+category: STARTERS
+price: "125 MXN"
+quantity:
+  amount: 180
+  unit: g
+order: 1
+tags:
+  - vegetarian

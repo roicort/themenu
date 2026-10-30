@@ -1,0 +1,11 @@
+name: Enmoladas maison
+description: Tortillas de maïs faites maison, mole noir, sésame et herbes fraîches.
+menu: lunch
+category: MAINS
+price: "295 MXN"
+quantity:
+  amount: 320
+  unit: g
+order: 2
+allergens:
+  - gluten

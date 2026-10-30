@@ -1,0 +1,20 @@
+name: Poisson du jour rôti au feu
+description: Poisson du marché, adobo au piment costeño, hoja santa et légumes de saison.
+category: MAINS
+menu: dinner
+order: 4
+variants:
+  - name: Portion dégustation
+    price: "420 MXN"
+    quantity:
+      amount: 180
+      unit: g
+  - name: Portion principale
+    price: "560 MXN"
+    quantity:
+      amount: 240
+      unit: g
+allergens:
+  - seafood
+tags:
+  - spicy

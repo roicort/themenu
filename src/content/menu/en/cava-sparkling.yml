@@ -1,0 +1,18 @@
+name: Mexican sparkling wine
+description: Traditional-method brut from the highlands of Querétaro.
+menu: cava
+category: WINES
+order: 2
+variants:
+  - name: Glass
+    price: "$195 MXN"
+    quantity:
+      amount: 150
+      unit: ml
+  - name: Bottle
+    price: "$890 MXN"
+    quantity:
+      amount: 750
+      unit: ml
+tags:
+  - alcohol

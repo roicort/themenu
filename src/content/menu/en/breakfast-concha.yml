@@ -1,0 +1,12 @@
+name: Cacao concha
+description: Slow-fermented brioche with cacao nibs, baked fresh each morning.
+menu: breakfast
+category: DESSERTS
+price: "$95 MXN"
+quantity:
+  amount: 85
+  unit: g
+order: 4
+allergens:
+  - egg
+  - gluten

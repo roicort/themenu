@@ -1,0 +1,9 @@
+name: Mexican sparkling mineral water
+description: Naturally carbonated mineral water, served chilled with lime.
+menu: cava
+category: DRINKS
+price: "$85 MXN"
+quantity:
+  amount: 355
+  unit: ml
+order: 5

@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import MenuPage from '../../../components/MenuPage.astro';
+
+export async function getStaticPaths() {
+	const menus = await getCollection('menus');
+	return menus
+		.filter((entry) => entry.id.startsWith('fr/'))
+		.map((entry) => ({
+			params: { lang: 'fr', meal: entry.data.id },
+			props: { lang: 'fr', menuId: entry.data.id },
+		}));
+}
+
+const { lang, menuId } = Astro.props;
+---
+
+<MenuPage lang={lang} menuId={menuId} />

@@ -1,0 +1,11 @@
+name: Seasonal fruit with chile
+description: Market fruit, lime, and a delicate dusting of house-ground chile.
+menu: breakfast
+category: STARTERS
+price: "$125 MXN"
+quantity:
+  amount: 180
+  unit: g
+order: 1
+tags:
+  - vegetarian

@@ -1,0 +1,9 @@
+name: Horchata de riz grillé
+description: Horchata de riz maison, cacao et cannelle mexicaine.
+menu: lunch
+category: DRINKS
+price: "90 MXN"
+quantity:
+  amount: 300
+  unit: ml
+order: 4

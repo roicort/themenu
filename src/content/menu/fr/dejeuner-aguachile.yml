@@ -1,0 +1,13 @@
+name: Aguachile de sériole
+description: Sériole, concombre, citron vert et bouillon vif au piment chiltepín.
+menu: lunch
+category: STARTERS
+price: "265 MXN"
+quantity:
+  amount: 100
+  unit: g
+order: 1
+tags:
+  - spicy
+allergens:
+  - seafood

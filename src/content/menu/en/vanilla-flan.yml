@@ -1,0 +1,12 @@
+name: Cacao and nixtamal cake
+description: Warm cacao cake with nixtamalized corn, burnt-milk ice cream, and piloncillo.
+category: DESSERTS
+menu: dinner
+price: "$175 MXN"
+quantity:
+  amount: 120
+  unit: g
+order: 6
+allergens:
+  - egg
+  - gluten

@@ -1,0 +1,11 @@
+name: Tetela de maïs bleu
+description: Huitlacoche, hoja santa et salsa de tomates grillées, enveloppés dans une pâte de maïs bleu.
+category: STARTERS
+menu: dinner
+price: "195 MXN"
+quantity:
+  amount: 2
+  unit: pièces
+order: 1
+tags:
+  - vegetarian

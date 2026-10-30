@@ -1,0 +1,13 @@
+name: Tostada de sériole
+description: Sériole marinée aux agrumes, xoconostle, avocat et huile de piment sur une tostada de maïs.
+category: STARTERS
+menu: dinner
+price: "285 MXN"
+quantity:
+  amount: 90
+  unit: g
+order: 2
+tags:
+  - spicy
+allergens:
+  - seafood

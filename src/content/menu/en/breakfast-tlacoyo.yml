@@ -1,0 +1,11 @@
+name: Blue corn tlacoyo
+description: Filled with fava beans, topped with nopales, quelites, and salsa verde.
+menu: breakfast
+category: MAINS
+price: "$210 MXN"
+quantity:
+  amount: 2
+  unit: pieces
+order: 3
+tags:
+  - vegetarian

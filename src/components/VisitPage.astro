@@ -1,0 +1,78 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { getSite } from '../utils/consts';
+
+type Language = 'en' | 'fr';
+
+interface Props {
+	lang: Language;
+}
+
+const { lang } = Astro.props;
+const site = await getSite();
+if (!site.visit) {
+	throw new Error('Visit information is missing from site-config.yml.');
+}
+
+const copy = {
+	en: {
+		title: 'Visit',
+		description: 'Find us in Mexico City and plan your visit.',
+		eyebrow: 'Plan your visit',
+		gettingHere: 'Getting here',
+		address: 'Address',
+		publicTransport: 'Public transit',
+		hours: 'Hours',
+	},
+	fr: {
+		title: 'Visiter',
+		description: 'Retrouvez-nous à Mexico et préparez votre visite.',
+		eyebrow: 'Préparez votre visite',
+		gettingHere: 'Comment venir',
+		address: 'Adresse',
+		publicTransport: 'Transports en commun',
+		hours: 'Horaires',
+	},
+};
+
+const text = copy[lang];
+const visit = site.visit;
+---
+
+<PageLayout title={`${text.title} · ${site.title}`} description={text.description}>
+	<section class="content-shell space-y-10 py-12">
+		<header class="max-w-3xl space-y-3">
+			<p class="eyebrow m-0">{text.eyebrow}</p>
+			<h1 class="m-0 text-4xl font-semibold text-ink sm:text-5xl">{text.title}</h1>
+			<p class="m-0 text-muted">{text.description}</p>
+		</header>
+
+		<div class="grid gap-6 lg:grid-cols-2">
+			<section class="space-y-5 rounded-2xl border border-border bg-surface p-6">
+				<h2 class="m-0 text-2xl font-semibold text-ink">{text.gettingHere}</h2>
+				<div class="space-y-2">
+					<h3 class="m-0 text-lg font-medium text-ink">{text.address}</h3>
+					<p class="m-0 text-muted">{visit.address[lang]}</p>
+				</div>
+				<div class="space-y-2">
+					<h3 class="m-0 text-lg font-medium text-ink">{text.publicTransport}</h3>
+					<ul class="m-0 list-disc space-y-2 pl-5 text-muted">
+						{visit.publicTransport[lang].map((recommendation) => <li>{recommendation}</li>)}
+					</ul>
+				</div>
+			</section>
+
+			<section class="space-y-3 rounded-2xl border border-border bg-surface p-6">
+				<h2 class="m-0 text-2xl font-semibold text-ink">{text.hours}</h2>
+				<dl class="m-0 grid gap-3">
+					{visit.hours[lang].map((entry) => (
+						<div class="flex justify-between gap-4 border-b border-border pb-2 last:border-0 last:pb-0">
+							<dt class="font-medium text-ink">{entry.day}</dt>
+							<dd class="m-0 text-right text-muted">{entry.schedule}</dd>
+						</div>
+					))}
+				</dl>
+			</section>
+		</div>
+	</section>
+</PageLayout>

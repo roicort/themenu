@@ -1,0 +1,11 @@
+name: Duck in black mole
+description: Slow-roasted duck, black mole with cacao and toasted wheat bread, and handmade corn tortillas.
+category: MAINS
+menu: dinner
+price: "$520 MXN"
+quantity:
+  amount: 220
+  unit: g
+order: 3
+allergens:
+  - gluten

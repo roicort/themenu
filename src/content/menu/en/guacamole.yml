@@ -1,0 +1,11 @@
+name: Blue corn tetela
+description: Huitlacoche, hoja santa, and fire-roasted tomato salsa wrapped in blue corn masa.
+category: STARTERS
+menu: dinner
+price: "$195 MXN"
+quantity:
+  amount: 2
+  unit: pieces
+order: 1
+tags:
+  - vegetarian

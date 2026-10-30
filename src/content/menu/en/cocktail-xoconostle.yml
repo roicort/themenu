@@ -1,0 +1,11 @@
+name: Xoconostle martini
+description: Blanco tequila, tart prickly pear, dry vermouth, and lime oil.
+menu: cava
+category: COCKTAILS
+price: "$245 MXN"
+quantity:
+  amount: 120
+  unit: ml
+order: 3
+tags:
+  - alcohol

@@ -1,0 +1,11 @@
+name: Chayotte rôtie aux braises
+description: Chayotte, pipián aux graines de courge et huile de hoja santa.
+menu: lunch
+category: SIDES
+price: "135 MXN"
+quantity:
+  amount: 160
+  unit: g
+order: 3
+tags:
+  - vegetarian

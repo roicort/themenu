@@ -1,0 +1,9 @@
+name: Eau minérale pétillante mexicaine
+description: Eau minérale naturellement gazeuse, servie fraîche avec du citron vert.
+menu: cava
+category: DRINKS
+price: "85 MXN"
+quantity:
+  amount: 355
+  unit: ml
+order: 5

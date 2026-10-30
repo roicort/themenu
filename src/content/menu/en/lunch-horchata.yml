@@ -1,0 +1,9 @@
+name: Toasted rice horchata
+description: House-made rice horchata with cacao and Mexican cinnamon.
+menu: lunch
+category: DRINKS
+price: "$90 MXN"
+quantity:
+  amount: 300
+  unit: ml
+order: 4

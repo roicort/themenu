@@ -1,0 +1,11 @@
+name: Tlacoyo de maïs bleu
+description: Farci aux fèves, garni de nopales, de quelites et de salsa verde.
+menu: breakfast
+category: MAINS
+price: "210 MXN"
+quantity:
+  amount: 2
+  unit: pièces
+order: 3
+tags:
+  - vegetarian

@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import MenuIndex from '../../../components/MenuIndex.astro';
+
+export async function getStaticPaths() {
+	const menus = await getCollection('menus');
+	const locales = new Set(
+		menus.filter((entry) => entry.id.startsWith('fr/')).map((entry) => entry.id.split('/')[0]),
+	);
+	return [...locales].map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props;
+---
+
+<MenuIndex lang={lang} />

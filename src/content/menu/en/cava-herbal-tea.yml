@@ -1,0 +1,9 @@
+name: Hibiscus and rosemary infusion
+description: A fragrant, caffeine-free infusion served hot or over ice.
+menu: cava
+category: DRINKS
+price: "$95 MXN"
+quantity:
+  amount: 300
+  unit: ml
+order: 6

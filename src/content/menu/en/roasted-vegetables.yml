@@ -1,0 +1,12 @@
+name: Organic milpa vegetables
+description: Certified-organic seasonal vegetables, ember-roasted with pumpkin seed pipián.
+category: SIDES
+menu: dinner
+price: "$185 MXN"
+quantity:
+  amount: 180
+  unit: g
+order: 5
+tags:
+  - vegetarian
+  - organic

@@ -1,0 +1,48 @@
+site:
+  title: "The Menu"
+  description: "A modern Astro scaffolding for restaurants and cafes."
+  based: "Mexico City"
+  timezone: "America/Mexico_City"
+  locale: "es-MX"
+  visit:
+    address:
+      en: "Calle de la Terraza 123, Centro Histórico, Ciudad de México, CDMX 06000"
+      fr: "Calle de la Terraza 123, Centro Histórico, Ciudad de México, CDMX 06000"
+    publicTransport:
+      en:
+        - "Metro: take Line 2 to Allende station, then walk about 7 minutes."
+        - "Metrobús: get off at Bellas Artes and continue on foot for about 12 minutes."
+      fr:
+        - "Métro : prenez la ligne 2 jusqu’à la station Allende, puis marchez environ 7 minutes."
+        - "Métrobus : descendez à Bellas Artes et continuez à pied pendant environ 12 minutes."
+    hours:
+      en:
+        - day: Monday
+          schedule: Closed
+        - day: Tuesday
+          schedule: 1:00 PM–10:00 PM
+        - day: Wednesday
+          schedule: 1:00 PM–10:00 PM
+        - day: Thursday
+          schedule: 1:00 PM–10:00 PM
+        - day: Friday
+          schedule: 1:00 PM–10:00 PM
+        - day: Saturday
+          schedule: 1:00 PM–10:00 PM
+        - day: Sunday
+          schedule: 1:00 PM–10:00 PM
+      fr:
+        - day: Lundi
+          schedule: Fermé
+        - day: Mardi
+          schedule: 13 h–22 h
+        - day: Mercredi
+          schedule: 13 h–22 h
+        - day: Jeudi
+          schedule: 13 h–22 h
+        - day: Vendredi
+          schedule: 13 h–22 h
+        - day: Samedi
+          schedule: 13 h–22 h
+        - day: Dimanche
+          schedule: 13 h–22 h

@@ -1,0 +1,35 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/Hero.astro';
+import HomeMenus from '../components/HomeMenus.astro';
+import UpcomingEvents from '../components/UpcomingEvents.astro';
+import HomeSections from '../components/HomeSections.astro';
+import Sponsors from '../components/Sponsors.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { getSite } from '../utils/consts';
+const site = await getSite();
+---
+
+<PageLayout
+	title={site.title}
+>
+	<Hero
+		eyebrow="Mexico City"
+		title="Contemporary Mexican cuisine"
+		description="Seasonal menus, private dining, and gatherings in a warm, intimate setting."
+		actions={[
+			{ label: 'Explore menus', href: '/menu' },
+			{ label: 'Plan your visit', href: '/visit' },
+		]}
+	/>
+
+	<HomeMenus />
+	<UpcomingEvents />
+	<HomeSections />
+
+	<Testimonials
+		eyebrow="Guest notes"
+		title="What our guests say"
+	/>
+
+</PageLayout>

@@ -1,0 +1,13 @@
+name: Kampachi tostada
+description: Citrus-cured kampachi, xoconostle, avocado, and chile oil on a crisp corn tostada.
+category: STARTERS
+menu: dinner
+price: "$285 MXN"
+quantity:
+  amount: 90
+  unit: g
+order: 2
+tags:
+  - spicy
+allergens:
+  - seafood

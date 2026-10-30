@@ -1,0 +1,12 @@
+name: Café de olla
+description: Single-origin Chiapas coffee infused with cinnamon and piloncillo.
+menu: breakfast
+category: DRINKS
+price: "$85 MXN"
+quantity:
+  amount: 250
+  unit: ml
+order: 5
+variants:
+  - name: Regular
+  - name: Decaf

@@ -1,0 +1,12 @@
+name: Légumes bio de la milpa
+description: Légumes bio de saison, rôtis aux braises et servis avec un pipián aux graines de courge.
+category: SIDES
+menu: dinner
+price: "185 MXN"
+quantity:
+  amount: 180
+  unit: g
+order: 5
+tags:
+  - vegetarian
+  - organic
